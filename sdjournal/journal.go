@@ -459,7 +459,7 @@ func NewJournalInNamespace(namespace string) (j *Journal, err error) {
 	n := C.CString(namespace)
 	defer C.free(unsafe.Pointer(n))
 
-	r := C.my_sd_journal_open_namespace(sd_journal_open_namespace, &j.cjournal, n, C.SD_JOURNAL_LOCAL_ONLY)
+	r := C.my_sd_journal_open_namespace(sd_journal_open_namespace, &j.cjournal, n, 0)
 
 	if r < 0 {
 		return nil, fmt.Errorf("failed to open journal in namespace %q: %s", namespace, syscall.Errno(-r).Error())
